@@ -1,5 +1,9 @@
 <template>
-    <v-toolbar color="primary" class="white--text">しずおかごみ出しNavi</v-toolbar>    
+    <v-toolbar color="primary">
+        <router-link to="/" class="white--text">
+        しずおかごみ出しNavi
+        </router-link>
+    </v-toolbar>
 </template>
 
 <script>

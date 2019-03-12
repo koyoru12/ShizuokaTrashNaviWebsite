@@ -2,9 +2,20 @@
 <span>
     <v-divider/>
     <v-footer color="white pt-2 pb-2" height="auto">
-        <v-flex class="text-xs-center">
-            <v-layout column>
-                <span>
+        <v-flex xs10 offset-xs1>
+            <v-layout>
+                <v-layout align-center class="caption">
+                    <a href="https://www.smallnight.net" class="px-3">
+                        &copy;2018-{{new Date().getFullYear()}} SmallNight
+                    </a>
+                    <router-link to="/about" class="px-3">
+                        {{languagePack.about}}
+                    </router-link>
+                    <router-link to="/about" class="px-3">
+                        {{languagePack.contact}}
+                    </router-link>
+                </v-layout>
+                <v-flex class="text-xs-center">
                     <v-btn class="mx-3" icon :key="index" v-for="(link, index) in links"
                     href="https://timeline.line.me/social-plugin/share?url=http%3A%2F%2Fexample.com%2F"
                     >
@@ -12,11 +23,7 @@
                             {{link}}
                         </v-icon>
                     </v-btn>
-                </span>
-                <span class="caption">
-                    免責/クレジット
-                    &copy;2018 SmallNight
-                </span>
+                </v-flex>
             </v-layout>
         </v-flex>
     </v-footer>
@@ -24,9 +31,11 @@
 </template>
 
 <script>
+import { getMessages } from '../middlewares/lang.js'
 export default {
     data() {
         return {
+            languagePack: {},
             snsLinks: [
                 {
                     icon: 'fab fa-line',
@@ -37,8 +46,11 @@ export default {
                     link: "https://timeline.line.me/social-plugin/share?url=http%3A%2F%2Fexample.com%2F"
                 }
             ],
-            links: ['fab fa-line', 'fab fa-twitter', 'fab fa-facebook']
+            links: ['fab fa-line', 'fab fa-twitter', 'fab fa-facebook', 'fab fa-github']
         }
+    },
+    created() {
+        this.languagePack = getMessages('footer');
     }
 }
 </script>

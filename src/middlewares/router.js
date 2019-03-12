@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Hero from '../components/hero'
 import Chat from '../components/chat'
+import About from '../components/about'
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,10 @@ const router = new VueRouter({
         {
             path: '/chat',
             component: Chat
+        },
+        {
+            path: '/about',
+            component: About
         }
     ]
 })

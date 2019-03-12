@@ -1,7 +1,7 @@
 <template>
     <v-layout>
         <v-flex xs10 offset-xs1 pb-5 mb-5>
-            <balloon :key="Math.random()" v-for="message in getChatLogs()"
+            <balloon :key="index" v-for="(message, index) in getChatLogs()"
             :message="message.message"
             :direction="message.direction"/>
         </v-flex>
