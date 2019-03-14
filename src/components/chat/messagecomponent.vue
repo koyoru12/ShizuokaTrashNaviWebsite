@@ -7,7 +7,6 @@
 
 <script>
 import ChatService from '../../middlewares/chat.js'
-import { MessageAction } from './models/actions.js'
 import { Settings } from './models/settings.js'
 
 export default {

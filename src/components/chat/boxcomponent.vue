@@ -8,6 +8,7 @@
 
 <script>
 import MessageComponent from './messagecomponent'
+import ButtonComponent from './buttoncomponent'
 import SeparatorComponent from './separatorcomponent'
 export default {
     props: {
@@ -15,13 +16,18 @@ export default {
     },
     components: {
         MessageComponent,
-        SeparatorComponent
+        ButtonComponent,
+        SeparatorComponent,
     },
     methods: {
         componentFromType(componentType) {
             switch(componentType) {
                 case 'text':
                     return MessageComponent;
+                    break;
+                
+                case 'button':
+                    return ButtonComponent;
                     break;
 
                 case 'separator':
