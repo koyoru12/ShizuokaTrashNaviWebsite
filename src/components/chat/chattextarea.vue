@@ -1,10 +1,15 @@
 <template>
     <v-footer fixed color="transparent">
-        <v-flex xs12>
+        <v-flex>
             <v-card color="white" class="pb-3">
                 <v-layout justify-center row align-center>
-                        <v-btn icon color="primary white--text">+</v-btn>
+                        <v-btn icon color="primary white--text" @click="isShowMenu=!isShowMenu">+</v-btn>
+
+                        <chat-menu
+                        v-show="isShowMenu"
+                        class="flex xs10"/>
                         <input
+                        v-show="!isShowMenu"
                         v-model="textareaModel" class="flex xs10 px-3 input"
                         placeholder="ペットボトルの捨て方"
                         :disabled="loading"
@@ -17,13 +22,18 @@
 </template>
 
 <script>
+import ChatMenu from './chatmenu'
 export default {
     props: {
         loading: Boolean
     },
+    components: {
+        ChatMenu
+    },
     data() {
         return {
-            textareaModel: ''
+            textareaModel: '',
+            isShowMenu: false
         }
     },
     methods: {

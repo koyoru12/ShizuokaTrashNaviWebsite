@@ -4,10 +4,8 @@
     <v-footer color="white pt-2 pb-2" height="auto">
         <v-flex xs10 offset-xs1>
             <v-layout>
-                <v-layout align-center class="caption">
-                    <a href="https://www.smallnight.net" class="px-3">
-                        &copy;2018-{{new Date().getFullYear()}} SmallNight
-                    </a>
+                <v-layout align-center class="caption hidden-sm-and-down">
+                    <a href="https://www.smallnight.net" class="px-3" v-html="credit"/>
                     <router-link to="/about" class="px-3">
                         {{languagePack.about}}
                     </router-link>
@@ -23,6 +21,15 @@
                             {{link}}
                         </v-icon>
                     </v-btn>
+                    <v-layout column class="hidden-md-and-up">
+                        <router-link to="/about" class="py-1">
+                            {{languagePack.about}}
+                        </router-link>
+                        <router-link to="/about" class="py-1">
+                            {{languagePack.contact}}
+                        </router-link>
+                        <a href="https://www.smallnight.net" class="py-1" v-html="credit"/>
+                    </v-layout>
                 </v-flex>
             </v-layout>
         </v-flex>
@@ -47,6 +54,11 @@ export default {
                 }
             ],
             links: ['fab fa-line', 'fab fa-twitter', 'fab fa-facebook', 'fab fa-github']
+        }
+    },
+    computed: {
+        credit() {
+            return `&copy;2018-${new Date().getFullYear()} SmallNight`
         }
     },
     created() {

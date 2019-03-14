@@ -20,7 +20,7 @@ import Balloon from './chat/chatballoon'
 export default {
     components: {
         ChatTextarea,
-        Balloon
+        Balloon,
     },
     computed: {
         isLoading() {

@@ -1,17 +1,9 @@
 <template>
     <v-layout>
-        <v-flex xs8 offset-xs2>
+        <v-flex sm8 offset-sm2>
             <v-card class="my-3 px-3">
                 <v-container>
                     <span v-html="messages"/>
-                    <!--
-                    <span :key="index" v-for="(message, index) in messages">
-                        <span class="d-block title py-4">
-                            {{message.sub}}
-                        </span>
-                        <span class="pre-wrap">{{message.content}}</span>
-                    </span>
-                    -->
                 </v-container>
             </v-card>
         </v-flex>
