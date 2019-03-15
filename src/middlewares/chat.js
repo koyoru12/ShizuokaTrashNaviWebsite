@@ -27,8 +27,9 @@ ChatService.getChatLogs = function() {
 ChatService._send = async function (req) {
     this.loading = true;
     let response;
+    let endpoint = process.env.VUE_APP_API_SERVER + 'web/webhook'
     try {
-        response = await axios.post(process.env.VUE_APP_API_SERVER, JSON.stringify(req));
+        response = await axios.post(endpoint, JSON.stringify(req));
     } catch (e) {
         if (process.env.NODE_ENV === 'development') {
             console.log(e.message);

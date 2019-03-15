@@ -16,19 +16,19 @@ import marked from 'marked'
 export default {
     data() {
         return {
-            languagePack: {},
+            langPack: {},
         }
     },
     computed: {
         messages() {
-            if (!this.languagePack) return '';
-            return marked(this.languagePack.content, {
+            if (!this.langPack) return '';
+            return marked(this.langPack.content, {
                 breaks: true
             });
         }
     },
     created() {
-        this.languagePack = getMessages('about');
+        this.langPack = getMessages('about');
     }
 }
 </script>

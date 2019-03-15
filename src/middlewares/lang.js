@@ -1,4 +1,4 @@
-import lang from '../assets/languagepack'
+import lang from '../assets/lang/langpack'
 
 let langSettings = 'ja';
 const langagePack = lang;

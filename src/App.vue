@@ -33,6 +33,7 @@ export default {
     },
     created() {
         this.$vuetify.theme.primary = colors.blue.darken1;
+        this.$vuetify.theme.defaultText = colors.grey.darken4;
     }
 }
 </script>
