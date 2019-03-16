@@ -9,7 +9,7 @@
                     <router-link to="/about" class="px-3">
                         {{languagePack.about}}
                     </router-link>
-                    <router-link to="/about" class="px-3">
+                    <router-link to="/contact" class="px-3">
                         {{languagePack.contact}}
                     </router-link>
                 </v-layout>
@@ -25,7 +25,7 @@
                         <router-link to="/about" class="py-1">
                             {{languagePack.about}}
                         </router-link>
-                        <router-link to="/about" class="py-1">
+                        <router-link to="/contact" class="py-1">
                             {{languagePack.contact}}
                         </router-link>
                         <a href="https://www.smallnight.net" class="py-1" v-html="credit"/>
@@ -53,7 +53,7 @@ export default {
                     link: "https://timeline.line.me/social-plugin/share?url=http%3A%2F%2Fexample.com%2F"
                 }
             ],
-            links: ['fab fa-line', 'fab fa-twitter', 'fab fa-facebook', 'fab fa-github']
+            links: ['fab fa-line', 'fab fa-twitter', 'fab fa-facebook']
         }
     },
     computed: {

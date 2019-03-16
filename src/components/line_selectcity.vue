@@ -8,32 +8,39 @@
                     </h1>
                     {{ langPack.desc }}
                     <v-divider/>
-                    <span v-if="loading.city" class="text-xs-center d-block px-3 py-4">
-                        <v-progress-circular :size="50" color="primary" indeterminate/>
+                    <span v-if="invalidToken" class="text-xs-center d-block py-3">
+                        <span class="error--text">
+                        このページは無効か、有効期限が切れています。
+                        </span>
                     </span>
-                    <v-radio-group v-model="radioModel" v-if="!loading.city">
-                        <v-radio :key="index" v-for="(city, index) in cityList" 
-                        :value="city.name" color="primary">
-                            <template v-slot:label>
-                                <span class="defaultText--text">
-                                {{city.name}}
+                    <span v-if="!invalidToken">
+                        <span v-if="loading.city" class="text-xs-center d-block px-3 py-4">
+                            <v-progress-circular :size="50" color="primary" indeterminate/>
+                        </span>
+                        <v-radio-group v-model="selectedCityId" v-if="!loading.city">
+                            <v-radio :key="index" v-for="(city, index) in cityList" 
+                            :value="city.id" color="primary">
+                                <template v-slot:label>
+                                    <span class="defaultText--text">
+                                    {{city.name}}
+                                    </span>
+                                </template>
+                            </v-radio>
+                        </v-radio-group>
+                        <span class="d-block text-xs-center">
+                            <v-btn round large color="primary" class="px-5"
+                            :disabled="!selectedCityId" :loading="loading.submit" @click="submit">
+                                {{ langPack.submit }}
+                            </v-btn>
+                            <span v-if="submitResult !== null">
+                                <span class="caption d-block primary--text" v-if="submitResult">
+                                    <v-icon size="14px" color="primary">fas fa-check-circle</v-icon>
+                                    {{ langPack.submitSuccess }}
                                 </span>
-                            </template>
-                        </v-radio>
-                    </v-radio-group>
-                    <span class="d-block text-xs-center">
-                        <v-btn round large color="primary" class="px-5"
-                        :disabled="!radioModel" :loading="loading.submit" @click="submit">
-                            {{ langPack.submit }}
-                        </v-btn>
-                        <span v-if="submitResult.show">
-                            <span class="caption d-block primary--text" v-if="submitResult.success">
-                                <v-icon size="14px" color="primary">fas fa-check-circle</v-icon>
-                                {{ langPack.submitSuccess }}
-                            </span>
-                            <span class="captioin d-block error--text" v-if="!submitResult.success">
-                                <v-icon size="14px" color="error">fas fa-exclamation-circle</v-icon>
-                                {{ langPack.submitError }}
+                                <span class="captioin d-block error--text" v-if="!submitResult">
+                                    <v-icon size="14px" color="error">fas fa-exclamation-circle</v-icon>
+                                    {{ langPack.submitFailed }}
+                                </span>
                             </span>
                         </span>
                     </span>
@@ -44,10 +51,6 @@
 </template>
 
 <script>
-// ToDo:
-// 登録しました！失敗しました！の表示
-// created()時にトークンの認証要求をして、認証できない場合は404ページに飛ばす
-// 認証要求はrouterでやってもいいかも
 import { City } from '../middlewares/city.js'
 import { getMessages } from '../middlewares/lang.js'
 export default {
@@ -55,40 +58,39 @@ export default {
         return {
             langPack: {},
             cityList: [],
-            radioModel: null,
+            selectedCityId: null,
             token: null,
+            invalidToken: false,
             loading: {
                 city: false,
                 submit: false
             },
-            submitResult: {
-                show: false,
-                success: false
-            }
+            submitResult: null
         }
     },
     methods: {
         async submit() {
-            this.loading.submit = true;            
-            let res = await City.changeUserCity(1, 1);
+            this.loading.submit = true;
+            let res = await City.changeUserCity(this.selectedCityId, this.token);
             this.loading.submit = false;
-            this.submitResult.show = true;
-            this.submitResult.success = res;
+            this.submitResult = res;
         },
     },
     async created() {
-        this.loading.city = true;
         this.langPack = getMessages('line_selectcity');
-        let res = await City.fetchValidCities();
+        this.loading.city = true;
+        this.token = this.$route.query.token;
+        let res = await City.authenticate(this.token);
+        if (!res) {
+            this.invalidToken = true;
+            return;
+        }
+        res = await City.fetchValidCities();
         if (res) {
             this.cityList = res;
         }
         this.loading.city = false;
-        this.token = this.$route.query.token;
     }
 }
 </script>
 
-<style>
-
-</style>

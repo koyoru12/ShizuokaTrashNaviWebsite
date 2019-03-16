@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Hero from '../components/hero'
 import Chat from '../components/chat'
 import About from '../components/about'
+import Contact from '../components/contact'
 import LineSelectCity from '../components/line_selectcity'
 
 Vue.use(VueRouter);
@@ -23,6 +24,10 @@ const router = new VueRouter({
         {
             path: '/about',
             component: About
+        },
+        {
+            path: '/contact',
+            component: Contact
         },
         {
             path: '/line-selectcity',

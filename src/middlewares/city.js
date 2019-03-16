@@ -11,23 +11,13 @@ const sleep = async function (ms) {
 }
 
 City.fetchValidCities = async function () {
-    let list = [
-        {
-            name: '静岡市',
-            id: ''
-        },
-        {
-            name: '浜松市',
-            id: ''
-        },
-    ]
     let endpoint = process.env.VUE_APP_API_SERVER + 'app/city'
     let res = null;
     try {
         console.log(endpoint)
         res = await axios.get(endpoint);
         res = res.data;
-    } catch (e) {
+        } catch (e) {
         if (process.env.NODE_ENV === 'development') {
             console.log(e.message);
         }        
@@ -35,7 +25,33 @@ City.fetchValidCities = async function () {
     return res;
 };
 
+City.authenticate = async function (token) {
+    let endpoint = process.env.VUE_APP_API_SERVER + 'app/authentication'
+    let res = null;
+    try {
+        res = await axios.get(endpoint, {
+            headers: { 'Authorization': token }
+        });
+        return true;
+    } catch (e) {
+        if (process.env.NODE_ENV === 'development') {
+            console.log(e.message);
+        }
+        return false;
+    }    
+};
+
 City.changeUserCity = async function (cityId, token) {
-    await sleep(1000);
-    return true;
+    let endpoint = process.env.VUE_APP_API_SERVER + 'app/usercity'
+    try {
+        await axios.post(endpoint, cityId, {
+            headers: { 'Authorization': token }
+        });
+        return true;
+    } catch (e) {
+        if (process.env.NODE_ENV === 'development') {
+            console.log(e.message);
+        }
+        return false;
+    }
 };
