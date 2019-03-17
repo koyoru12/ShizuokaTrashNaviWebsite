@@ -1,6 +1,6 @@
 {
-  "name": "shizuoka-trash-navi-website",
-  "short_name": "shizuoka-trash-navi-website",
+  "name": "しずおかごみ出しNavi",
+  "short_name": "しずおかごみ出しNavi",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -13,8 +13,8 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./chat",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "#1E88E5",
+  "theme_color": "#1E88E5"
 }

@@ -46,26 +46,52 @@ export default {
     border-radius: 10px;
 }
 .right {
+    position: relative;
+    display: inline-block;
+    padding: 0 15px;
+    width: auto;
+    min-width: 150px;
+    max-width: 500px;
     background: #e0edff;
+    padding: 10px 20px;
+    z-index: 0;
 }
 .left {
+    position: relative;
+    display: inline-block;
+    padding: 0 15px;
+    width: auto;
+    min-width: 150px;
+    max-width: 500px;
     background: #1e88e5;
+    padding: 10px 20px;
+    z-index: 0;
     color: #ffffff;
 }
 .right:before {
+    border-style: solid;
+    border-width: 10px 0px 10px 20px;
+    border-color: transparent transparent transparent #e0edff;
     content: "";
     position: absolute;
-    right: -22px;
-    transform: rotate(-25deg);
-    border: 8px solid transparent;
-    border-left: 20px solid #e0edff;
+    top: 12px;
+    right: -16px;
+    display: block;
+    width: 0px;
+    height: 0px;
+    z-index: 0;
 }
 .left:before {
+    border-style: solid;
+    border-width: 10px 20px 10px 0;
+    border-color: transparent #1e88e5 transparent transparent;
     content: "";
     position: absolute;
-    left: -22px;
-    transform: rotate(25deg);
-    border: 8px solid transparent;
-    border-right: 20px solid #1e88e5;
+    top: 12px;
+    left: -16px;
+    display: block;
+    width: 0px;
+    height: 0px;
+    z-index: 0;
 }
 </style>

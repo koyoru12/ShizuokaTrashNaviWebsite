@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialogActivator">
+    <v-dialog v-model="dialogActivator" max-width="500px">
         <v-card>
             <v-toolbar color="primary" dark flat>
                 <v-btn icon @click="dialogActivator=false">
