@@ -10,11 +10,37 @@ const sleep = async function (ms) {
     });
 }
 
+City.fetchUserCity = function () {
+    let val = localStorage.getItem('cityId') || '';
+    return val;
+};
+
+City.setUserCity = async function (cityId, token) {
+    if (token === undefined) {
+        // Web
+        localStorage.setItem('cityId', cityId);
+        return true;
+    } else {
+        // LINE
+        let endpoint = process.env.VUE_APP_API_SERVER + 'app/usercity'
+        try {
+            await axios.post(endpoint, cityId, {
+                headers: { 'Authorization': token }
+            });
+            return true;
+        } catch (e) {
+            if (process.env.NODE_ENV === 'development') {
+                console.log(e.message);
+            }
+            return false;
+        }    
+    }
+};
+
 City.fetchValidCities = async function () {
     let endpoint = process.env.VUE_APP_API_SERVER + 'app/city'
     let res = null;
     try {
-        console.log(endpoint)
         res = await axios.get(endpoint);
         res = res.data;
         } catch (e) {
@@ -39,19 +65,4 @@ City.authenticate = async function (token) {
         }
         return false;
     }    
-};
-
-City.changeUserCity = async function (cityId, token) {
-    let endpoint = process.env.VUE_APP_API_SERVER + 'app/usercity'
-    try {
-        await axios.post(endpoint, cityId, {
-            headers: { 'Authorization': token }
-        });
-        return true;
-    } catch (e) {
-        if (process.env.NODE_ENV === 'development') {
-            console.log(e.message);
-        }
-        return false;
-    }
 };

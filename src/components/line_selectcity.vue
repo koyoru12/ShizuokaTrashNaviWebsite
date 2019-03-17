@@ -10,34 +10,22 @@
                     <v-divider/>
                     <span v-if="invalidToken" class="text-xs-center d-block py-3">
                         <span class="error--text">
-                        このページは無効か、有効期限が切れています。
+                        {{ langPack.disabled }}
                         </span>
                     </span>
                     <span v-if="!invalidToken">
-                        <span v-if="loading.city" class="text-xs-center d-block px-3 py-4">
-                            <v-progress-circular :size="50" color="primary" indeterminate/>
-                        </span>
-                        <v-radio-group v-model="selectedCityId" v-if="!loading.city">
-                            <v-radio :key="index" v-for="(city, index) in cityList" 
-                            :value="city.id" color="primary">
-                                <template v-slot:label>
-                                    <span class="defaultText--text">
-                                    {{city.name}}
-                                    </span>
-                                </template>
-                            </v-radio>
-                        </v-radio-group>
+                        <city-selector v-model="selectedCityId"/>
                         <span class="d-block text-xs-center">
                             <v-btn round large color="primary" class="px-5"
-                            :disabled="!selectedCityId" :loading="loading.submit" @click="submit">
+                            :disabled="!selectedCityId" :loading="submitStatus.loading" @click="submit">
                                 {{ langPack.submit }}
                             </v-btn>
-                            <span v-if="submitResult !== null">
-                                <span class="caption d-block primary--text" v-if="submitResult">
+                            <span v-if="submitStatus.result !== null">
+                                <span class="caption d-block primary--text" v-if="submitStatus.result">
                                     <v-icon size="14px" color="primary">fas fa-check-circle</v-icon>
                                     {{ langPack.submitSuccess }}
                                 </span>
-                                <span class="captioin d-block error--text" v-if="!submitResult">
+                                <span class="captioin d-block error--text" v-if="!submitStatus.result">
                                     <v-icon size="14px" color="error">fas fa-exclamation-circle</v-icon>
                                     {{ langPack.submitFailed }}
                                 </span>
@@ -53,43 +41,39 @@
 <script>
 import { City } from '../middlewares/city.js'
 import { getMessages } from '../middlewares/lang.js'
+import CitySelector from './cityselector'
 export default {
+    components: {
+        CitySelector
+    },
     data() {
         return {
             langPack: {},
-            cityList: [],
             selectedCityId: null,
             token: null,
             invalidToken: false,
-            loading: {
-                city: false,
-                submit: false
+            submitStatus: {
+                loading: false,
+                result: null
             },
-            submitResult: null
         }
     },
     methods: {
         async submit() {
-            this.loading.submit = true;
-            let res = await City.changeUserCity(this.selectedCityId, this.token);
-            this.loading.submit = false;
-            this.submitResult = res;
+            this.submitStatus.loading = true;
+            let res = await City.setUserCity(this.selectedCityId, this.token);
+            this.submitStatus.loading = false;
+            this.submitStatus.result = res;
         },
     },
     async created() {
         this.langPack = getMessages('line_selectcity');
-        this.loading.city = true;
         this.token = this.$route.query.token;
         let res = await City.authenticate(this.token);
         if (!res) {
             this.invalidToken = true;
             return;
         }
-        res = await City.fetchValidCities();
-        if (res) {
-            this.cityList = res;
-        }
-        this.loading.city = false;
     }
 }
 </script>

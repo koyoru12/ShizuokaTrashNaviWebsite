@@ -14,11 +14,11 @@
                     </router-link>
                 </v-layout>
                 <v-flex class="text-xs-center">
-                    <v-btn class="mx-3" icon :key="index" v-for="(link, index) in links"
-                    href="https://timeline.line.me/social-plugin/share?url=http%3A%2F%2Fexample.com%2F"
+                    <v-btn class="mx-3" icon :key="index" v-for="(sns, index) in snsLinks"
+                    :href="sns.link" target="_blank"
                     >
                         <v-icon size="24px">
-                            {{link}}
+                            {{sns.icon}}
                         </v-icon>
                     </v-btn>
                     <v-layout column class="hidden-md-and-up">
@@ -46,14 +46,17 @@ export default {
             snsLinks: [
                 {
                     icon: 'fab fa-line',
-                    link: "https://timeline.line.me/social-plugin/share?url=http%3A%2F%2Fexample.com%2F"
+                    link: "https://timeline.line.me/social-plugin/share?url=https://shizuoka-trash-navi.smallnight.net/"
                 },
                 {
                     icon: 'fab fa-twitter',
-                    link: "https://timeline.line.me/social-plugin/share?url=http%3A%2F%2Fexample.com%2F"
+                    link: "https://twitter.com/share?url=https://shizuoka-trash-navi.smallnight.net/"
+                },
+                {
+                    icon: 'fab fa-facebook',
+                    link: "https://www.facebook.com/sharer/sharer.php?u=https://shizuoka-trash-navi.smallnight.net/"
                 }
             ],
-            links: ['fab fa-line', 'fab fa-twitter', 'fab fa-facebook']
         }
     },
     computed: {

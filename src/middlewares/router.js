@@ -12,6 +12,13 @@ const baseUrl = process.env.VUE_APP_DOCUMENT_ROOT;
 const router = new VueRouter({
     base: baseUrl,
     mode: 'history',
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { x: 0, y: 0 }
+        }
+    },
     routes: [
         {
             path: '/',

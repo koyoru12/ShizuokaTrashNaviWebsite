@@ -3,6 +3,7 @@ export default ChatService;
 
 import axios from 'axios'
 import { TextMessage } from '../components/chat/models/messages'
+import { City } from './city';
 
 // ChatService
 ChatService._chatlogs = [];
@@ -44,7 +45,10 @@ ChatService._send = async function (req) {
 ChatService.sendMessage = async function (message) {
     this.appendChatLog(message, 'left');
     let req = new Request({
-        text: message.text
+        request_message: message.text,
+        config: {
+            search_cityid: City.fetchUserCity()
+        }
     });
     let response = await this._send(req);
     if (response) {
@@ -82,11 +86,11 @@ ChatService.emitAction = function(action) {
 
 // Request
 class Request {
-    text = '';
+    request_message = '';
     action = '';
     config = {};
     constructor(args) {
-        this.text = args.text || '';
+        this.request_message = args.request_message || '';
         this.action = args.action || '';
         this.config = args.config || {};
     }

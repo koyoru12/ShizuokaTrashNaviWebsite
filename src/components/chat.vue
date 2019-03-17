@@ -1,13 +1,11 @@
 <template>
-    <v-layout>
-        <v-flex xs10 offset-xs1 pb-5 mb-5>
+    <v-layout class="mt-3">
+        <v-flex xs10 offset-xs1 pb-5 mb-3>
             <balloon :key="index" v-for="(message, index) in getChatLogs()"
             :message="message.message"
             :direction="message.direction"/>
         </v-flex>
-        <v-flex pt-5>
-            <chat-textarea :loading="isLoading" @sendMessage="sendMessage"/>
-        </v-flex>
+        <chat-textarea :loading="isLoading" @sendMessage="sendMessage"/>
     </v-layout>
 </template>
 
@@ -42,6 +40,8 @@ export default {
     created() {
         ChatService.on('chatLogChanged', () => {
             this.$forceUpdate();
+            let h = Math.max(document.body.clientHeight, document.body.scrollHeight);
+            this.$SmoothScroll(h);
         })
     }
 }
