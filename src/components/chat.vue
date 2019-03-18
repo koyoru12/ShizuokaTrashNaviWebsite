@@ -5,7 +5,7 @@
             :message="message.message"
             :direction="message.direction"/>
         </v-flex>
-        <chat-textarea :loading="isLoading" @sendMessage="sendMessage"/>
+        <chat-textarea :loading="isLoading()" @sendMessage="sendMessage"/>
     </v-layout>
 </template>
 
@@ -20,29 +20,28 @@ export default {
         ChatTextarea,
         Balloon,
     },
-    computed: {
+    methods: {
         isLoading() {
             return ChatService.loading;            
-        }
-    },
-    methods: {
+        },
         async sendMessage(message) {
             if (message === '') return;
-            this.waitForResponse = true;
             message = new TextMessage(message);
             let responseMessage = await ChatService.sendMessage(message);
-            this.waitForResponse = false;
         },
         getChatLogs() {
             return ChatService.getChatLogs();
         }
     },
-    created() {
+    async created() {
         ChatService.on('chatLogChanged', () => {
             this.$forceUpdate();
             let h = Math.max(document.body.clientHeight, document.body.scrollHeight);
             this.$SmoothScroll(h);
-        })
+        });
+        if (this.getChatLogs().length === 0) {
+            await ChatService.handShake();
+        }
     }
 }
 </script>

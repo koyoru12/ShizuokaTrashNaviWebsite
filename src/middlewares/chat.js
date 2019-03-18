@@ -4,6 +4,10 @@ export default ChatService;
 import axios from 'axios'
 import { TextMessage } from '../components/chat/models/messages'
 import { City } from './city';
+import { PostbackAction } from '../components/chat/models/actions';
+import { getMessages } from './lang.js'
+
+const LangPack = getMessages('chat');
 
 // ChatService
 ChatService._chatlogs = [];
@@ -34,8 +38,9 @@ ChatService._send = async function (req) {
     } catch (e) {
         if (process.env.NODE_ENV === 'development') {
             console.log(e.message);
-            response = null;
         }
+        this.appendChatLog(new TextMessage(LangPack['error_server']), 'right');
+        response = null;
     } finally {
         this.loading = false;
     }
@@ -83,6 +88,12 @@ ChatService.emitAction = function(action) {
         this._actionHandlers[action.type](action);
     }
 }
+
+ChatService.handShake = async function () {
+    await this.sendAction(new PostbackAction({
+        data: 'type=handshake'
+    }));
+};
 
 // Request
 class Request {

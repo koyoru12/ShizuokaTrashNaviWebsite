@@ -70,11 +70,12 @@ export default {
 }
 .right:before {
     border-style: solid;
-    border-width: 10px 0px 10px 20px;
+    border-width: 10px 0px 10px 25px;
     border-color: transparent transparent transparent #e0edff;
     content: "";
     position: absolute;
-    top: 12px;
+    transform: rotate(-25deg);
+    top: 4px;
     right: -16px;
     display: block;
     width: 0px;
@@ -83,12 +84,13 @@ export default {
 }
 .left:before {
     border-style: solid;
-    border-width: 10px 20px 10px 0;
+    border-width: 10px 25px 10px 0;
     border-color: transparent #1e88e5 transparent transparent;
     content: "";
     position: absolute;
-    top: 12px;
-    left: -16px;
+    transform: rotate(25deg);
+    top: 4px;
+    left: -12px;
     display: block;
     width: 0px;
     height: 0px;

@@ -27,10 +27,16 @@ export default {
         submitFailed: '送信に失敗しました',
         submitSuccess: '送信しました'
     },
+    chat: {
+        error_server: 'ごめんなさい！\n接続に失敗しました😣'
+    },
     chatconfig: {
         sub: '市町村の変更',
         submit: '変更する',
         submitFailed: '変更に失敗しました',
         submitSuccess: '変更しました',
+    },
+    notfound: {
+        desc: 'お探しのページは見つかりませんでした。'
     }
 }

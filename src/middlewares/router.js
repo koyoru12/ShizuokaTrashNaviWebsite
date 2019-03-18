@@ -4,6 +4,7 @@ import Hero from '../components/hero'
 import Chat from '../components/chat'
 import About from '../components/about'
 import Contact from '../components/contact'
+import NotFound from '../components/notfound'
 import LineSelectCity from '../components/line_selectcity'
 
 Vue.use(VueRouter);
@@ -39,6 +40,10 @@ const router = new VueRouter({
         {
             path: '/line-selectcity',
             component: LineSelectCity
+        },
+        {
+            path: '*',
+            component: NotFound
         }
     ]
 })
