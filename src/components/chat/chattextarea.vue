@@ -9,7 +9,7 @@
                         <chat-config v-model="isShowMenu"/>
                         <input
                         v-model="textareaModel" class="flex xs10 px-3 input"
-                        placeholder="ペットボトルの捨て方"
+                        :placeholder="langPack.placeholder"
                         :disabled="loading"
                         @keydown="handleKeyDown"
                         />
@@ -21,6 +21,7 @@
 
 <script>
 import ChatConfig from './chatconfig'
+import { getMessages } from '../../middlewares/lang.js'
 export default {
     props: {
         loading: Boolean
@@ -30,6 +31,7 @@ export default {
     },
     data() {
         return {
+            langPack: {},
             textareaModel: '',
             isShowMenu: false
         }
@@ -43,6 +45,9 @@ export default {
                 this.$emit('sendMessage', message);
             }
         }
+    },
+    created() {
+        this.langPack = getMessages('chat');
     }
 }
 </script>

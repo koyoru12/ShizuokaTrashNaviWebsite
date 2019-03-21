@@ -28,6 +28,7 @@ export default {
         submitSuccess: '送信しました'
     },
     chat: {
+        placeholder: '捨てたいごみの名前',
         error_server: 'ごめんなさい！\n接続に失敗しました😣'
     },
     chatconfig: {
