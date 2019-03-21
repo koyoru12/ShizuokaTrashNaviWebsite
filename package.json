@@ -17,6 +17,7 @@
     "vuetify": "^1.5.5"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.4.0",
     "@vue/cli-plugin-babel": "^3.5.0",
     "@vue/cli-plugin-eslint": "^3.5.0",
     "@vue/cli-plugin-pwa": "^3.5.0",
